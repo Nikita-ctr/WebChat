@@ -1,5 +1,6 @@
 package com.app.webchat.config;
 
+import com.app.webchat.interceptor.HttpHandshakeInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -14,6 +15,12 @@ import java.util.Hashtable;
 //Turns on the WebSocket message handling returned by the message broker.
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    private final HttpHandshakeInterceptor handshakeInterceptor;
+
+    public WebSocketConfig(HttpHandshakeInterceptor handshakeInterceptor) {
+        this.handshakeInterceptor = handshakeInterceptor;
+    }
 
 
     //registers /ws,including optionally SockJS as an alternate messaging option when WebSocket is not available.
